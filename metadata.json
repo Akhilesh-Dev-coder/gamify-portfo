@@ -1,0 +1,6 @@
+{
+  "name": "Magi Scurra Portfolio Game",
+  "description": "An interactive 3D game portfolio built with Three.js and React, featuring 3D avatar controls, responsive mobile joysticks, dynamic exploration of Projects, About Me, Skills, and a real-time guestbook database.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
