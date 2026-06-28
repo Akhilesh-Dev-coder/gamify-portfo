@@ -29,6 +29,21 @@
       "guestbookSigned": false,
       "score": 40,
       "updatedAt": "2026-06-28T05:34:42.959Z"
+    },
+    "u-ydpelme": {
+      "userId": "u-ydpelme",
+      "nickname": "Player 1481",
+      "visitedStations": [
+        "about",
+        "skills",
+        "projects",
+        "contact",
+        "guestbook"
+      ],
+      "unlockedSkills": [],
+      "guestbookSigned": false,
+      "score": 50,
+      "updatedAt": "2026-06-28T17:39:46.022Z"
     }
   }
 }
