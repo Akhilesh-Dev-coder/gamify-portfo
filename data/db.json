@@ -1,0 +1,34 @@
+{
+  "guestbook": [
+    {
+      "id": "g-1",
+      "name": "Linus Torvalds",
+      "email": "torvalds@linuxfoundation.org",
+      "message": "Excellent 3D work! The character controls are fluid and the tech-stack shrine looks amazing. Code looks highly modular too.",
+      "createdAt": "2026-06-28T00:45:09.119Z"
+    },
+    {
+      "id": "g-2",
+      "name": "Grace Hopper",
+      "email": "grace@navy.mil",
+      "message": "I love exploring portfolios in 3D. Truly interactive and elegant layout! Keep building great things.",
+      "createdAt": "2026-06-28T02:45:09.119Z"
+    }
+  ],
+  "progress": {
+    "u-2ao7919": {
+      "userId": "u-2ao7919",
+      "nickname": "Player 1412",
+      "visitedStations": [
+        "about",
+        "contact",
+        "skills",
+        "projects"
+      ],
+      "unlockedSkills": [],
+      "guestbookSigned": false,
+      "score": 40,
+      "updatedAt": "2026-06-28T05:34:42.959Z"
+    }
+  }
+}

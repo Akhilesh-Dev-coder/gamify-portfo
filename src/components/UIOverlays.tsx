@@ -86,7 +86,7 @@ export default function UIOverlays({
       return `Learn and unlock all tech tree skills (${userProgress.unlockedSkills.length}/8 active)`;
     }
     if (!userProgress.guestbookSigned) {
-      return "Cross the southern river bridge to the cabin & sign the Guestbook!";
+      return "Walk over to the southern cabin & sign the Guestbook!";
     }
     return "Amazing! You have fully explored the magical island! Leave feedback.";
   };
@@ -158,6 +158,23 @@ export default function UIOverlays({
   return (
     <div id="ui-overlay-layer" className="absolute inset-0 pointer-events-none flex flex-col justify-between p-4 font-sans select-none z-10">
       
+      {/* Dynamic Interaction Notification Overlay */}
+      {nearStation && (
+        <div className="absolute top-24 left-1/2 -translate-x-1/2 z-40 w-full max-w-sm pointer-events-auto animate-slide-down">
+          <div className="bg-black/90 backdrop-blur-md border-l-4 border-cyan-500 p-4 shadow-[0_0_25px_rgba(6,182,212,0.3)] flex items-center gap-3.5">
+            <div className="w-9 h-9 bg-cyan-500/10 border border-cyan-500/40 text-cyan-400 flex items-center justify-center rounded animate-pulse">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <div className="flex-1">
+              <h4 className="text-white font-mono uppercase font-bold text-[11px] tracking-widest">Zone Detected</h4>
+              <p className="text-slate-300 text-[10px] font-mono mt-0.5 leading-snug">
+                You are near <span className="text-cyan-400 font-bold">{getStationLabel(nearStation)}</span>. Press <kbd className="px-1 py-0.5 bg-cyan-950 border border-cyan-500/30 text-cyan-400 text-[9px] rounded font-bold">E</kbd> to interact.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ========================================================= */}
       {/* HEADER SECTION (Branding, Navigation Buttons) */}
       {/* ========================================================= */}
@@ -165,11 +182,11 @@ export default function UIOverlays({
         {/* Left identity card */}
         <div className="flex items-center gap-4 bg-black/50 backdrop-blur-md border-l-2 border-cyan-500 p-4 shadow-2xl">
           <div className="w-10 h-10 bg-gradient-to-br from-cyan-950 to-black border border-cyan-500/40 text-cyan-400 font-mono tracking-widest font-bold flex items-center justify-center text-lg shadow-[0_0_15px_rgba(6,182,212,0.2)]">
-            MS
+            AD
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-white font-mono uppercase font-bold text-sm tracking-widest leading-none">Magi Scurra</h1>
+              <h1 className="text-white font-mono uppercase font-bold text-sm tracking-widest leading-none">Akhilesh Dev</h1>
               <span className="text-[9px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-1.5 py-0.5 rounded font-mono tracking-widest uppercase">LEVEL {Math.floor(userProgress.score / 100) + 1}</span>
             </div>
             <p className="text-slate-400 text-[10px] uppercase font-mono tracking-wider mt-1">Full Stack & 3D Interactive Specialist</p>
@@ -396,7 +413,7 @@ export default function UIOverlays({
                 {activeModal === "about" && (
                   <>
                     <div className="w-8 h-8 bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20"><User className="w-4 h-4" /></div>
-                    <h2 className="text-white font-mono uppercase tracking-widest text-sm font-bold">About Magi Scurra</h2>
+                    <h2 className="text-white font-mono uppercase tracking-widest text-sm font-bold">About Akhilesh Dev</h2>
                   </>
                 )}
                 {activeModal === "projects" && (
@@ -437,10 +454,10 @@ export default function UIOverlays({
                 <div className="flex flex-col gap-6">
                   <div className="flex flex-col md:flex-row gap-5 items-center bg-black/55 p-5 border border-white/5">
                     <div className="w-16 h-16 bg-gradient-to-br from-cyan-950 to-black border-2 border-cyan-500/30 flex items-center justify-center text-cyan-400 font-mono tracking-widest font-bold text-2xl shadow-[0_0_20px_rgba(6,182,212,0.2)]">
-                      MS
+                      AD
                     </div>
                     <div className="text-center md:text-left flex-1">
-                      <h3 className="text-white font-bold text-sm uppercase tracking-wider font-mono">Magi Scurra</h3>
+                      <h3 className="text-white font-bold text-sm uppercase tracking-wider font-mono">Akhilesh Dev</h3>
                       <p className="text-cyan-400 text-[10px] uppercase font-mono font-semibold tracking-widest mt-1">Sustained Web Engineering & Interactive Graphics</p>
                       <p className="text-slate-400 text-xs mt-2 font-mono">
                         Specializing in building real-time, browser-native 3D simulations, high-performance API architectures, and robust database synchronizations.
@@ -672,7 +689,7 @@ export default function UIOverlays({
                           <textarea
                             value={guestMessage}
                             onChange={(e) => setGuestMessage(e.target.value)}
-                            placeholder="Type your message to Magi Scurra..."
+                            placeholder="Type your message to Akhilesh Dev..."
                             rows={3}
                             className="w-full bg-black/80 border border-white/10 focus:border-cyan-500 rounded px-3.5 py-2 text-xs text-white focus:outline-none transition-all font-mono shadow-inner resize-none"
                             disabled={isSubmittingGuest}
@@ -745,7 +762,7 @@ export default function UIOverlays({
             </div>
 
             <div className="flex flex-col gap-4 text-xs leading-relaxed font-mono">
-              <p className="text-slate-400 text-[11px]">Welcome to Magi Scurra's interactive portfolio world! You control a custom 3D avatar exploring a beautiful procedural island.</p>
+              <p className="text-slate-400 text-[11px]">Welcome to Akhilesh Dev's interactive portfolio world! You control a custom 3D avatar exploring a beautiful procedural island.</p>
               
               <div>
                 <h4 className="text-cyan-400 font-bold mb-1 uppercase text-[10px] tracking-wider">🎮 Control Mechanics:</h4>
@@ -762,7 +779,7 @@ export default function UIOverlays({
                 <ul className="list-disc pl-5 flex flex-col gap-1 text-[11px] text-slate-300">
                   <li>Approach any of the four interactive shrines.</li>
                   <li>Press <kbd className="px-1.5 py-0.5 bg-black border border-white/10 text-cyan-400 text-[9px]">E</kbd> or tap the action button to access them!</li>
-                  <li>Unlock technical skills on the skills shrine, explore projects on the projects screen, and cross the southern bridge to sign the guestbook!</li>
+                  <li>Unlock technical skills on the skills shrine, explore projects on the projects screen, and visit the southern cabin to sign the guestbook!</li>
                 </ul>
               </div>
             </div>
