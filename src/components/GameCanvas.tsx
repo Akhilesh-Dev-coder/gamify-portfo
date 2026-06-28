@@ -95,9 +95,9 @@ export default function GameCanvas({
     const height = containerRef.current.clientHeight || 500;
 
     const scene = new THREE.Scene();
-    // Beautiful skybox blue sky fog
-    scene.background = new THREE.Color("#0a0f1d");
-    scene.fog = new THREE.FogExp2("#0a0f1d", 0.015);
+    // Beautiful morning skybox with foggy horizon mist
+    scene.background = new THREE.Color("#bae6fd"); // Light clear morning sky blue
+    scene.fog = new THREE.FogExp2("#ffedd5", 0.012); // Warm morning mist/horizon glaze
 
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
@@ -113,11 +113,11 @@ export default function GameCanvas({
     const clock = new THREE.Clock();
 
     // --- LIGHTS ---
-    const ambientLight = new THREE.AmbientLight("#2e3d52", 1.2);
+    const ambientLight = new THREE.AmbientLight("#fef3c7", 1.4); // Warm morning ambient light
     scene.add(ambientLight);
 
-    const sunLight = new THREE.DirectionalLight("#e0f2fe", 1.8);
-    sunLight.position.set(30, 40, 20);
+    const sunLight = new THREE.DirectionalLight("#fdb777", 2.2); // Golden morning directional sunlight
+    sunLight.position.set(-45, 20, -15); // Lower angle for long beautiful morning shadows
     sunLight.castShadow = true;
     sunLight.shadow.mapSize.width = 1024;
     sunLight.shadow.mapSize.height = 1024;
@@ -130,20 +130,20 @@ export default function GameCanvas({
     sunLight.shadow.camera.bottom = -d;
     scene.add(sunLight);
 
-    // Subtle colored point lights for accents
-    const purpleLight = new THREE.PointLight("#c084fc", 4, 15);
+    // Subtle colored point lights for accents (toned down slightly for bright morning daylight)
+    const purpleLight = new THREE.PointLight("#c084fc", 2.2, 15);
     purpleLight.position.set(0, 3, -15);
     scene.add(purpleLight);
 
-    const cyanLight = new THREE.PointLight("#22d3ee", 4, 15);
+    const cyanLight = new THREE.PointLight("#22d3ee", 2.2, 15);
     cyanLight.position.set(-15, 3, -5);
     scene.add(cyanLight);
 
-    const greenLight = new THREE.PointLight("#4ade80", 4, 15);
+    const greenLight = new THREE.PointLight("#4ade80", 2.2, 15);
     greenLight.position.set(15, 3, -5);
     scene.add(greenLight);
 
-    const orangeLight = new THREE.PointLight("#fb923c", 4, 15);
+    const orangeLight = new THREE.PointLight("#fb923c", 2.2, 15);
     orangeLight.position.set(12, 3, 12);
     scene.add(orangeLight);
 
@@ -151,37 +151,37 @@ export default function GameCanvas({
     const terrainGroup = new THREE.Group();
     scene.add(terrainGroup);
 
-    // Large main ground plateau (grass)
+    // Large main ground plateau (lush green grass)
     const grassGeo = new THREE.CylinderGeometry(26, 28, 2, 32);
     const grassMat = new THREE.MeshStandardMaterial({
-      color: "#1e3a27",
+      color: "#16a34a", // Lush bright morning grass
       roughness: 0.9,
-      metalness: 0.1,
+      metalness: 0.05,
     });
     const grassMesh = new THREE.Mesh(grassGeo, grassMat);
     grassMesh.position.y = -1;
     grassMesh.receiveShadow = true;
     terrainGroup.add(grassMesh);
 
-    // Sand rim around island
+    // Sand rim around island (warmer bright sand)
     const sandGeo = new THREE.CylinderGeometry(28, 30, 1.8, 32);
     const sandMat = new THREE.MeshStandardMaterial({
-      color: "#c2a67a",
-      roughness: 0.95,
+      color: "#e5c185", // Warmer morning beach sand
+      roughness: 0.9,
     });
     const sandMesh = new THREE.Mesh(sandGeo, sandMat);
     sandMesh.position.y = -1.1;
     sandMesh.receiveShadow = true;
     terrainGroup.add(sandMesh);
 
-    // Surrounding Ocean Water
+    // Surrounding Ocean Water (shimmering clear blue morning lagoon)
     const waterGeo = new THREE.PlaneGeometry(300, 300);
     const waterMat = new THREE.MeshStandardMaterial({
-      color: "#034c76",
+      color: "#0ea5e9", // Brilliant turquoise sky blue
       transparent: true,
-      opacity: 0.8,
-      roughness: 0.2,
-      metalness: 0.8,
+      opacity: 0.82,
+      roughness: 0.15,
+      metalness: 0.7,
     });
     const waterMesh = new THREE.Mesh(waterGeo, waterMat);
     waterMesh.rotation.x = -Math.PI / 2;
@@ -189,12 +189,12 @@ export default function GameCanvas({
     scene.add(waterMesh);
 
     // --- THE RIVER & WOODEN BRIDGE ---
-    // River cut-out box on island
+    // River cut-out box on island (clear reflecting water)
     const riverGeo = new THREE.BoxGeometry(4, 2.1, 30);
     const riverMat = new THREE.MeshStandardMaterial({
-      color: "#0575b5",
-      roughness: 0.3,
-      metalness: 0.6,
+      color: "#0284c7", // Bright river blue
+      roughness: 0.25,
+      metalness: 0.5,
     });
     const riverMesh = new THREE.Mesh(riverGeo, riverMat);
     riverMesh.position.set(10, -1, 5);
@@ -206,10 +206,10 @@ export default function GameCanvas({
     bridgeGroup.position.set(9.5, -0.1, 4.2);
     bridgeGroup.rotation.y = Math.PI / 6;
 
-    // Bridge floor planks
+    // Bridge floor planks (rich warm cedar-like brown wood)
     const woodMat = new THREE.MeshStandardMaterial({
-      color: "#5c4033",
-      roughness: 0.95,
+      color: "#78350f", // Rich warm cedar brown
+      roughness: 0.9,
     });
     const bridgeFloor = new THREE.Mesh(
       new THREE.BoxGeometry(5.5, 0.2, 2.8),
@@ -579,82 +579,297 @@ export default function GameCanvas({
 
     scene.add(cabinGroup);
 
-    // --- PLAYABLE PLAYER AVATAR ---
+    // --- PLAYABLE PLAYER AVATAR (STYLIZED SHIH TZU DOG WITH RICH CARAMEL FUR & WHITE SOCKS) ---
     const player = new THREE.Group();
     player.position.set(0, 0, 0);
 
-    // Head
-    const head = new THREE.Mesh(
+    // Let's create materials for the Shih Tzu matching the user's reference image exactly
+    const brownMat = new THREE.MeshStandardMaterial({ color: "#bc702a", roughness: 0.85 }); // Rich caramel brown
+    const whiteMat = new THREE.MeshStandardMaterial({ color: "#f8f9fa", roughness: 0.9 });  // Pure fluffy white socks/patches
+    const blackMat = new THREE.MeshStandardMaterial({ color: "#121212", roughness: 0.95 }); // Pupil and nose black
+    const tongueMat = new THREE.MeshStandardMaterial({ color: "#fb7185", roughness: 0.7 }); // Pink tongue
+    const eyeHighlightMat = new THREE.MeshStandardMaterial({ color: "#ffffff", roughness: 0.1, emissive: "#ffffff", emissiveIntensity: 0.5 });
+
+    // 1. Dog Body (horizontal cylinder body with extra fluffy volumetric coat)
+    const bodyGroup = new THREE.Group();
+    bodyGroup.position.set(0, 0.45, 0);
+    
+    const dogBody = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.33, 0.33, 0.82, 12),
+      brownMat
+    );
+    dogBody.rotation.x = Math.PI / 2; // horizontal orientation along Z-axis
+    dogBody.castShadow = true;
+    dogBody.receiveShadow = true;
+    bodyGroup.add(dogBody);
+
+    // Fluffy caramel side-fluff/shaggy coat extensions (mimics the long flowing coat in the photo)
+    const sideFluffL1 = new THREE.Mesh(new THREE.SphereGeometry(0.33, 8, 8), brownMat);
+    sideFluffL1.position.set(-0.14, -0.06, 0.1);
+    sideFluffL1.scale.set(0.7, 1.1, 1.2);
+    bodyGroup.add(sideFluffL1);
+
+    const sideFluffR1 = new THREE.Mesh(new THREE.SphereGeometry(0.33, 8, 8), brownMat);
+    sideFluffR1.position.set(0.14, -0.06, 0.1);
+    sideFluffR1.scale.set(0.7, 1.1, 1.2);
+    bodyGroup.add(sideFluffR1);
+
+    const sideFluffL2 = new THREE.Mesh(new THREE.SphereGeometry(0.33, 8, 8), brownMat);
+    sideFluffL2.position.set(-0.14, -0.06, -0.2);
+    sideFluffL2.scale.set(0.7, 1.1, 1.2);
+    bodyGroup.add(sideFluffL2);
+
+    const sideFluffR2 = new THREE.Mesh(new THREE.SphereGeometry(0.33, 8, 8), brownMat);
+    sideFluffR2.position.set(0.14, -0.06, -0.2);
+    sideFluffR2.scale.set(0.7, 1.1, 1.2);
+    bodyGroup.add(sideFluffR2);
+
+    // Rich fluffy white bib/patch on the chest (perfect V-shape and fluff precisely matching the image)
+    const chestPatch1 = new THREE.Mesh(
+      new THREE.SphereGeometry(0.32, 12, 12),
+      whiteMat
+    );
+    chestPatch1.position.set(0, 0.08, 0.33);
+    chestPatch1.scale.set(0.95, 1.1, 0.85);
+    bodyGroup.add(chestPatch1);
+
+    const chestPatch2 = new THREE.Mesh(
+      new THREE.SphereGeometry(0.24, 12, 12),
+      whiteMat
+    );
+    chestPatch2.position.set(0, -0.12, 0.28);
+    chestPatch2.scale.set(0.85, 0.95, 0.8);
+    bodyGroup.add(chestPatch2);
+    
+    player.add(bodyGroup);
+
+    // 2. Dog Head (sphere, mounted on the front)
+    const headGroup = new THREE.Group();
+    headGroup.position.set(0, 0.92, 0.4); // elevated and forward
+
+    const dogHead = new THREE.Mesh(
       new THREE.SphereGeometry(0.35, 16, 16),
-      new THREE.MeshStandardMaterial({ color: "#fbcfe8", roughness: 0.6 }) // light skin tone
+      brownMat
     );
-    head.position.y = 1.65;
-    head.castShadow = true;
-    player.add(head);
+    dogHead.castShadow = true;
+    headGroup.add(dogHead);
 
-    // Stylized Dark Hair
-    const hair = new THREE.Mesh(
-      new THREE.BoxGeometry(0.72, 0.25, 0.72),
-      new THREE.MeshStandardMaterial({ color: "#1e293b", roughness: 0.8 })
+    // Forehead/Topknot dome (gives the classic puffy Shih Tzu head shape)
+    const topknot = new THREE.Mesh(new THREE.SphereGeometry(0.23, 12, 12), brownMat);
+    topknot.position.set(0, 0.2, -0.05);
+    topknot.scale.set(1.15, 0.85, 1);
+    headGroup.add(topknot);
+
+    // Fluffy white and caramel cheeks
+    const cheekL = new THREE.Mesh(new THREE.SphereGeometry(0.18, 10, 10), whiteMat);
+    cheekL.position.set(-0.21, -0.08, 0.12);
+    cheekL.scale.set(1.0, 1.35, 1.05);
+    headGroup.add(cheekL);
+
+    const cheekR = new THREE.Mesh(new THREE.SphereGeometry(0.18, 10, 10), whiteMat);
+    cheekR.position.set(0.21, -0.08, 0.12);
+    cheekR.scale.set(1.0, 1.35, 1.05);
+    headGroup.add(cheekR);
+
+    // White fur blaze running up the forehead (just like the reference image!)
+    const blaze1 = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 8), whiteMat);
+    blaze1.position.set(0, 0.08, 0.29);
+    blaze1.scale.set(0.9, 1.6, 0.8);
+    headGroup.add(blaze1);
+
+    const blaze2 = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), whiteMat);
+    blaze2.position.set(0, 0.22, 0.22);
+    blaze2.scale.set(1, 1, 0.9);
+    headGroup.add(blaze2);
+
+    // 3. Floppy Ears (luxurious brown ears draping downwards, blending beautifully)
+    const earL = new THREE.Mesh(
+      new THREE.BoxGeometry(0.12, 0.48, 0.22),
+      brownMat
     );
-    hair.position.set(0, 1.8, 0.05);
-    player.add(hair);
+    earL.position.set(-0.31, -0.04, 0.02);
+    earL.rotation.z = Math.PI / 15;
+    earL.castShadow = true;
 
-    const hairTuft = new THREE.Mesh(
-      new THREE.BoxGeometry(0.5, 0.15, 0.3),
-      new THREE.MeshStandardMaterial({ color: "#1e293b", roughness: 0.8 })
+    const earR = new THREE.Mesh(
+      new THREE.BoxGeometry(0.12, 0.48, 0.22),
+      brownMat
     );
-    hairTuft.position.set(0, 1.85, 0.3);
-    player.add(hairTuft);
+    earR.position.set(0.31, -0.04, 0.02);
+    earR.rotation.z = -Math.PI / 15;
+    earR.castShadow = true;
 
-    // Torso (Hoodie with "MS" canvas texture on the back)
-    const hoodieTex = createTextTexture("MS", "#0f172a", "#a855f7", 128, 128);
-    // Let's create materials array so the MS texture is mapped on the back face!
-    // Cylinders take 3 materials (side, top, bottom).
-    // Let's make it simple: build a hoodie box or cylindrical trunk with a specific material.
-    // Let's use a nice dark grey box representing the hoodie!
-    const bodyMaterials = [
-      new THREE.MeshStandardMaterial({ color: "#1e293b", roughness: 0.8 }), // right
-      new THREE.MeshStandardMaterial({ color: "#1e293b", roughness: 0.8 }), // left
-      new THREE.MeshStandardMaterial({ color: "#1e293b", roughness: 0.8 }), // top
-      new THREE.MeshStandardMaterial({ color: "#1e293b", roughness: 0.8 }), // bottom
-      new THREE.MeshStandardMaterial({ color: "#1e293b", roughness: 0.8 }), // front
-      new THREE.MeshStandardMaterial({ map: hoodieTex, roughness: 0.8 }),   // back with "MS"
+    // Elegant long ear hair drape (blends into the white/caramel cheeks)
+    const earDrapeL = new THREE.Mesh(new THREE.SphereGeometry(0.11, 8, 8), brownMat);
+    earDrapeL.position.set(0, -0.22, 0.02);
+    earDrapeL.scale.set(1.15, 1.5, 1.15);
+    earL.add(earDrapeL);
+
+    const earDrapeR = new THREE.Mesh(new THREE.SphereGeometry(0.11, 8, 8), brownMat);
+    earDrapeR.position.set(0, -0.22, 0.02);
+    earDrapeR.scale.set(1.15, 1.5, 1.15);
+    earR.add(earDrapeR);
+
+    headGroup.add(earL, earR);
+
+    // 4. Snowy White Muzzle, Mustache & Beard (Fully white beard and mustache)
+    const snoutL = new THREE.Mesh(new THREE.SphereGeometry(0.14, 10, 10), whiteMat);
+    snoutL.position.set(-0.08, -0.06, 0.28);
+    snoutL.scale.set(1.05, 1, 1.05);
+    headGroup.add(snoutL);
+
+    const snoutR = new THREE.Mesh(new THREE.SphereGeometry(0.14, 10, 10), whiteMat);
+    snoutR.position.set(0.08, -0.06, 0.28);
+    snoutR.scale.set(1.05, 1, 1.05);
+    headGroup.add(snoutR);
+
+    const beardCenter = new THREE.Mesh(new THREE.SphereGeometry(0.14, 10, 10), whiteMat);
+    beardCenter.position.set(0, -0.15, 0.24);
+    beardCenter.scale.set(1.2, 1.1, 1.15);
+    headGroup.add(beardCenter);
+
+    // Cute small black nose
+    const nose = new THREE.Mesh(
+      new THREE.BoxGeometry(0.085, 0.055, 0.065),
+      blackMat
+    );
+    nose.position.set(0, -0.015, 0.38);
+    headGroup.add(nose);
+
+    // Glistening pink tongue inside cute slightly parted mouth
+    const tongue = new THREE.Mesh(
+      new THREE.BoxGeometry(0.06, 0.03, 0.085),
+      tongueMat
+    );
+    tongue.position.set(0, -0.09, 0.33);
+    headGroup.add(tongue);
+
+    // 5. Glistening Deep Puppy Eyes
+    const eyeL = new THREE.Mesh(
+      new THREE.SphereGeometry(0.058, 8, 8),
+      blackMat
+    );
+    eyeL.position.set(-0.13, 0.07, 0.27);
+    
+    const eyeR = new THREE.Mesh(
+      new THREE.SphereGeometry(0.058, 8, 8),
+      blackMat
+    );
+    eyeR.position.set(0.13, 0.07, 0.27);
+
+    // Expressive catchlight sparkles for a real lifelike gaze
+    const highlightL = new THREE.Mesh(new THREE.SphereGeometry(0.019, 6, 6), eyeHighlightMat);
+    highlightL.position.set(0.02, 0.02, 0.04);
+    eyeL.add(highlightL);
+
+    const highlightR = new THREE.Mesh(new THREE.SphereGeometry(0.019, 6, 6), eyeHighlightMat);
+    highlightR.position.set(0.02, 0.02, 0.04);
+    eyeR.add(highlightR);
+
+    headGroup.add(eyeL, eyeR);
+
+    // Fluffy white eyebrow tufts for that sweet puppy expression
+    const browL = new THREE.Mesh(
+      new THREE.SphereGeometry(0.07, 8, 8),
+      whiteMat
+    );
+    browL.position.set(-0.11, 0.15, 0.27);
+    browL.scale.set(1.3, 0.75, 0.9);
+    browL.rotation.z = -Math.PI / 10;
+    headGroup.add(browL);
+
+    const browR = new THREE.Mesh(
+      new THREE.SphereGeometry(0.07, 8, 8),
+      whiteMat
+    );
+    browR.position.set(0.11, 0.15, 0.27);
+    browR.scale.set(1.3, 0.75, 0.9);
+    browR.rotation.z = Math.PI / 10;
+    headGroup.add(browR);
+
+    player.add(headGroup);
+
+    // 6. Four Legs with Thick, Fluffy White Socks (Booties precisely matching the reference!)
+    const legFL = new THREE.Group();
+    legFL.position.set(-0.24, 0.22, 0.26);
+
+    const legFR = new THREE.Group();
+    legFR.position.set(0.24, 0.22, 0.26);
+
+    const legBL = new THREE.Group();
+    legBL.position.set(-0.24, 0.22, -0.26);
+
+    const legBR = new THREE.Group();
+    legBR.position.set(0.24, 0.22, -0.26);
+
+    // Helper to generate perfectly stylized white-socks legs with fluff cuff rings
+    const makeLegSocks = (grp: THREE.Group) => {
+      // Upper leg (Caramel brown)
+      const upperLeg = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.1, 0.09, 0.2, 8),
+        brownMat
+      );
+      upperLeg.position.y = 0.1;
+      upperLeg.castShadow = true;
+      grp.add(upperLeg);
+
+      // Fluffy Cuff Ring at transition (creates the voluminous coat look)
+      const cuff = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.11, 0.11, 0.05, 8),
+        whiteMat
+      );
+      cuff.position.y = 0.01;
+      grp.add(cuff);
+
+      // Lower leg sock (Snowy white)
+      const lowerLeg = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.09, 0.11, 0.22, 8),
+        whiteMat
+      );
+      lowerLeg.position.y = -0.1;
+      lowerLeg.castShadow = true;
+      grp.add(lowerLeg);
+
+      // Fluffy white paw
+      const paw = new THREE.Mesh(
+        new THREE.SphereGeometry(0.115, 8, 8),
+        whiteMat
+      );
+      paw.position.set(0, -0.2, 0.04);
+      paw.scale.set(1.05, 0.75, 1.3);
+      paw.castShadow = true;
+      grp.add(paw);
+    };
+
+    makeLegSocks(legFL);
+    makeLegSocks(legFR);
+    makeLegSocks(legBL);
+    makeLegSocks(legBR);
+
+    player.add(legFL, legFR, legBL, legBR);
+
+    // 7. Beautiful plume curly tail (curves high upwards and curls forward over the back)
+    const tailGroup = new THREE.Group();
+    tailGroup.position.set(0, 0.65, -0.4);
+    
+    // Curved fluffy tail design using overlapping puffy spheres for that beautiful plume
+    const tailPuffs = [
+      { x: 0, y: 0.1, z: -0.05, r: 0.1, mat: brownMat },
+      { x: 0, y: 0.22, z: -0.08, r: 0.11, mat: brownMat },
+      { x: 0, y: 0.35, z: -0.06, r: 0.12, mat: brownMat },
+      { x: 0, y: 0.46, z: 0.02, r: 0.13, mat: whiteMat }, // turning snowy white at the top
+      { x: 0, y: 0.52, z: 0.12, r: 0.12, mat: whiteMat }, // curling forward
+      { x: 0, y: 0.48, z: 0.22, r: 0.1, mat: whiteMat }   // final fluffy plume puff
     ];
 
-    const body = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.9, 0.5), bodyMaterials);
-    body.position.y = 1.05;
-    body.castShadow = true;
-    body.receiveShadow = true;
-    player.add(body);
+    tailPuffs.forEach((p) => {
+      const puff = new THREE.Mesh(new THREE.SphereGeometry(p.r, 8, 8), p.mat);
+      puff.position.set(p.x, p.y, p.z);
+      puff.castShadow = true;
+      tailGroup.add(puff);
+    });
 
-    // Limbs (Legs and Arms)
-    const limbMat = new THREE.MeshStandardMaterial({ color: "#0f172a", roughness: 0.9 });
-    const handMat = new THREE.MeshStandardMaterial({ color: "#fbcfe8" });
-
-    // Left Leg
-    const legL = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.6, 8), limbMat);
-    legL.position.set(-0.25, 0.3, 0);
-    legL.castShadow = true;
-
-    // Right Leg
-    const legR = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.6, 8), limbMat);
-    legR.position.set(0.25, 0.3, 0);
-    legR.castShadow = true;
-
-    player.add(legL, legR);
-
-    // Left Arm
-    const armL = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.6, 8), limbMat);
-    armL.position.set(-0.5, 1.1, 0);
-    armL.castShadow = true;
-
-    // Right Arm
-    const armR = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.6, 8), limbMat);
-    armR.position.set(0.5, 1.1, 0);
-    armR.castShadow = true;
-
-    player.add(armL, armR);
+    player.add(tailGroup);
 
     scene.add(player);
 
@@ -902,24 +1117,36 @@ export default function GameCanvas({
         game.playerHeading += diff * 12 * delta;
         player.rotation.y = game.playerHeading;
 
-        // Limb swing animation based on walking frequency
+        // Quadruped walk swing animation (front-left / back-right swing in phase, front-right / back-left opposite)
         const animFreq = keys.shift ? 12 : 7;
-        const swing = Math.sin(time * animFreq) * 0.45;
-        legL.rotation.x = swing;
-        legR.rotation.x = -swing;
-        armL.rotation.x = -swing * 0.8;
-        armR.rotation.x = swing * 0.8;
+        const swing = Math.sin(time * animFreq) * 0.55;
+        
+        legFL.rotation.x = swing;
+        legBR.rotation.x = swing;
+        legFR.rotation.x = -swing;
+        legBL.rotation.x = -swing;
+        
+        // Happy rapid tail wagging when walking
+        tailGroup.rotation.y = Math.sin(time * animFreq * 1.5) * 0.35;
+        tailGroup.rotation.x = -Math.PI / 4 + Math.sin(time * animFreq) * 0.1;
 
         // Small body bounce
-        body.position.y = 1.05 + Math.abs(Math.sin(time * animFreq)) * 0.05;
+        bodyGroup.position.y = 0.5 + Math.abs(Math.sin(time * animFreq)) * 0.06;
+        headGroup.position.y = 0.95 + Math.sin(time * animFreq) * 0.03;
       } else {
-        // Idle animation: breathing and slight head tilt
-        legL.rotation.x = 0;
-        legR.rotation.x = 0;
-        armL.rotation.x = Math.sin(time * 2) * 0.05;
-        armR.rotation.x = -Math.sin(time * 2) * 0.05;
-        body.position.y = 1.05 + Math.sin(time * 1.5) * 0.015;
-        head.rotation.z = Math.sin(time * 0.5) * 0.02;
+        // Idle animation: resting legs, happy gentle tail wag, slow breathing, head tilt
+        legFL.rotation.x = 0;
+        legFR.rotation.x = 0;
+        legBL.rotation.x = 0;
+        legBR.rotation.x = 0;
+        
+        // Gentle happy tail wag
+        tailGroup.rotation.y = Math.sin(time * 2) * 0.2;
+        tailGroup.rotation.x = -Math.PI / 4 + Math.sin(time * 0.5) * 0.05;
+        
+        bodyGroup.position.y = 0.5 + Math.sin(time * 1.5) * 0.012;
+        headGroup.position.y = 0.95 + Math.sin(time * 1.5) * 0.008;
+        headGroup.rotation.z = Math.sin(time * 0.8) * 0.04;
       }
 
       // --- COLLISIONS AND LIMITS ---
@@ -975,18 +1202,18 @@ export default function GameCanvas({
         player.position.y = 0; // standard ground
       }
 
-      // 5. CAMERA ORBIT FOLLOW PLAYER
+      // 5. CAMERA ORBIT FOLLOW PLAYER (Lowered slightly to frame the adorable Shih Tzu dog beautifully)
       const radiusCam = 8.5; // distance from player
       const yaw = game.cameraAngleYaw;
       const pitch = game.cameraAnglePitch;
 
       const camX = player.position.x + radiusCam * Math.cos(yaw) * Math.cos(pitch);
-      const camY = player.position.y + radiusCam * Math.sin(pitch) + 1.2;
+      const camY = player.position.y + radiusCam * Math.sin(pitch) + 0.8;
       const camZ = player.position.z + radiusCam * Math.sin(yaw) * Math.cos(pitch);
 
       camera.position.set(camX, camY, camZ);
-      // Look slightly above the player head
-      camera.lookAt(player.position.x, player.position.y + 1.2, player.position.z);
+      // Look slightly above the player center of mass
+      camera.lookAt(player.position.x, player.position.y + 0.6, player.position.z);
 
       // 6. TRIGGER DETECTIONS (Trigger interaction check)
       let currentActiveStation: string | null = null;
@@ -1046,7 +1273,7 @@ export default function GameCanvas({
     <div
       id="3d-viewport-container"
       ref={containerRef}
-      className="w-full h-full relative overflow-hidden bg-slate-950 cursor-grab active:cursor-grabbing rounded-2xl border border-slate-800 shadow-2xl shadow-slate-950"
+      className="w-full h-full relative overflow-hidden bg-[#bae6fd] cursor-grab active:cursor-grabbing rounded-2xl border border-sky-300/40 shadow-2xl shadow-sky-950/20"
     />
   );
 }

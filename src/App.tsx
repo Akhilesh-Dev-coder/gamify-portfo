@@ -158,11 +158,11 @@ export default function App() {
   };
 
   return (
-    <div id="portfolio-root" className="relative w-screen h-screen bg-[#050505] text-white font-sans overflow-hidden select-none">
+    <div id="portfolio-root" className="relative w-screen h-screen bg-[#0c1524] text-white font-sans overflow-hidden select-none">
       
       {/* Atmosphere Gradient Backdrop & Scanlines */}
       <div className="absolute inset-0 pointer-events-none z-[1]">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f1a]/70 via-[#050505]/30 to-[#050505]/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-sky-400/15 via-transparent to-[#0c1524]/60"></div>
         {/* System Scanlines/Overlay */}
         <div className="absolute inset-0 opacity-[0.03]" style={{ background: "linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06))", backgroundSize: "100% 4px, 3px 100%" }}></div>
       </div>
